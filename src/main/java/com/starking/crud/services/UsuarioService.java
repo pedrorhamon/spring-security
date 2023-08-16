@@ -3,6 +3,7 @@ package com.starking.crud.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.starking.crud.domain.model.Usuario;
@@ -26,6 +27,11 @@ public class UsuarioService {
 
 	public void buscarPorId(Usuario usuario) {
 		this.usuarioRepository.findById(usuario.getId());
+	}
+	
+	public void atualizarUsuario(Usuario usuario, Long id) {
+		Optional<Usuario> usuarioAtualizado = this.usuarioRepository.findById(usuario.getId());
+		BeanUtils.copyProperties(usuarioAtualizado, usuario);
 	}
 
 	@Transactional
