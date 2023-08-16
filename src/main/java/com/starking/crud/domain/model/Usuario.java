@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -33,16 +34,21 @@ public class Usuario implements Serializable{
 	@EqualsAndHashCode.Include
 	private Long id;
 	
-	@NotNull
-	@NotEmpty
+	@NotNull(message = "O nome é obrigatorio")
+	@NotEmpty(message = "O nome não pode ser vázio")
 	private String nome;
 	
 	@CPF
 	@Column(unique = true)
+	@NotNull(message = "O CPF é obrigatorio")
 	private String cpf;
+	
+	@Email(message = "Digite o formato de e-mail válido")
+	private String email;
 	
 	private String telefone;
 	
 	@DateTimeFormat(iso = ISO.DATE, fallbackPatterns = {"dd/MM/yyyy"})
+	@NotNull(message = "A data de nascimento é obrigatorio")
 	private Date dataNascimento;
 }
