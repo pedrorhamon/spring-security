@@ -31,8 +31,13 @@ public class UsuarioService {
 	}
 
 	public void atualizarUsuario(Usuario usuario, Long id) {
-		Optional<Usuario> usuarioAtualizado = this.usuarioRepository.findById(usuario.getId());
-		BeanUtils.copyProperties(usuarioAtualizado, usuario);
+	    Optional<Usuario> usuarioAtualizadoOptional = Optional.ofNullable(this.buscarPorId(id));
+	    Usuario usuarioAtualizado = usuarioAtualizadoOptional.orElseThrow(() ->
+	            new RuntimeException("Usuário com ID " + id + " não encontrado"));
+
+	    BeanUtils.copyProperties(usuario, usuarioAtualizado);
+
+	    this.usuarioRepository.save(usuarioAtualizado);
 	}
 
 	@Transactional
