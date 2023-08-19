@@ -25,10 +25,11 @@ public class UsuarioService {
 		return this.usuarioRepository.findAll();
 	}
 
-	public void buscarPorId(Usuario usuario) {
-		this.usuarioRepository.findById(usuario.getId());
+	public Usuario buscarPorId(Long id) {
+		Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+		return usuarioOptional.orElseThrow(() -> new RuntimeException("Usuário com ID " + id + " não encontrado"));
 	}
-	
+
 	public void atualizarUsuario(Usuario usuario, Long id) {
 		Optional<Usuario> usuarioAtualizado = this.usuarioRepository.findById(usuario.getId());
 		BeanUtils.copyProperties(usuarioAtualizado, usuario);
