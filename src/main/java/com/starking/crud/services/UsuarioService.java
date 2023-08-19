@@ -27,7 +27,8 @@ public class UsuarioService {
 
 	public Usuario buscarPorId(Long id) {
 		Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
-		return usuarioOptional.orElseThrow(() -> new RuntimeException("Usuário com ID " + id + " não encontrado"));
+		return usuarioOptional.orElseThrow(() -> 
+		new RuntimeException("Usuário com ID " + id + " não encontrado"));
 	}
 
 	public void atualizarUsuario(Usuario usuario, Long id) {
@@ -45,5 +46,4 @@ public class UsuarioService {
 		Usuario usuarioSalvo = this.usuarioRepository.save(usuario);
 		return Optional.ofNullable(usuarioSalvo);
 	}
-
 }
