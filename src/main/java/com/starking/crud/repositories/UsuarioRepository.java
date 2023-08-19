@@ -8,5 +8,6 @@ import com.starking.crud.domain.model.Usuario;
  * @author pedroRhamon
  */
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
-
+	
+	Usuario findByEmail(String email);
 }
