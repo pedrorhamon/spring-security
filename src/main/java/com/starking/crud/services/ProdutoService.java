@@ -1,6 +1,7 @@
 package com.starking.crud.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,11 @@ public class ProdutoService {
 	
 	public List<Produto> buscarTodosProduto() {
 		return this.produtoRepository.findAll();
+	}
+	
+	public Optional<Produto> salvarProduto(Produto produto) {
+		Produto produtoSalvar = this.produtoRepository.save(produto);
+		return Optional.ofNullable(produtoSalvar);
 	}
 
 }
