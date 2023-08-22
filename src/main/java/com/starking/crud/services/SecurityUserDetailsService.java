@@ -1,5 +1,6 @@
 package com.starking.crud.services;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,7 +28,11 @@ public class SecurityUserDetailsService implements UserDetailsService {
 				.findByEmail(email)
 				.orElseThrow(() -> new UsernameNotFoundException("Email não cadastrado."));
 		
-		return null;
+		return User.builder()
+				.username(usuarioEncontrado.getEmail())
+				.password(usuarioEncontrado.getSenha())
+				.roles("USER")
+				.build();
 	}
 
 }
