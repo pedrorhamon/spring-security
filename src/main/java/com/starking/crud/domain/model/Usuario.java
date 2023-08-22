@@ -49,6 +49,10 @@ public class Usuario implements Serializable{
 	@Email(message = "Digite o formato de e-mail válido")
 	private String email;
 	
+	@NotNull(message = "A senha não pode ser nula")
+	@NotEmpty(message = "A Senha não pode ser vazia")
+	private String senha;
+	
 	private String telefone;
 	
 	@DateTimeFormat(iso = ISO.DATE, fallbackPatterns = {"dd/MM/yyyy"})
