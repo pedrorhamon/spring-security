@@ -58,8 +58,4 @@ public class Usuario implements Serializable{
 	@DateTimeFormat(iso = ISO.DATE, fallbackPatterns = {"dd/MM/yyyy"})
 	@NotNull(message = "A data de nascimento é obrigatorio")
 	private Date dataNascimento;
-	
-	@ManyToOne
-	@JoinColumn(name = "produtos")
-	private List<Produto> produtos;
 }
