@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.starking.crud.domain.model.Usuario;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -44,5 +46,13 @@ public class JwtService {
 							.compact();
 		
 		return token;
+	}
+	
+	public Claims obterClaims(String token) throws ExpiredJwtException {
+		return Jwts
+				.parser()
+				.setSigningKey(chaveAssinatura)
+				.parseClaimsJws(token)
+				.getBody();
 	}
 }
