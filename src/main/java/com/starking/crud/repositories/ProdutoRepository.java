@@ -7,6 +7,4 @@ import com.starking.crud.domain.model.Produto;
 /**
  * @author pedroRhamon
  */
-public interface ProdutoRepository extends JpaRepository<Produto, Long>{
-
-}
+public interface ProdutoRepository extends JpaRepository<Produto, Long>{}
