@@ -25,16 +25,16 @@ public class UsuarioService {
 	private final PasswordEncoder encoder;
 
 	public Usuario autenticar(String email, String senha) {
-		Optional<Usuario> usuario = this.repository.findByEmail(email);
-		
-		if(!usuario.isPresent()) {
-			throw new ErroAutenticacao(ConstantesUtils.USUARIO_NAO_ENCONTRADO);
+		Optional<Usuario> usuario = this.usuarioRepository.findByEmail(email);
+
+		if (!usuario.isPresent()) {
+			throw new ErroAutenticacao("Usuário não encontrado para o email informado.");
 		}
-		
+
 		boolean senhasBatem = encoder.matches(senha, usuario.get().getSenha());
-		
-		if(!senhasBatem) {
-			throw new ErroAutenticacao(ConstantesUtils.SENHA_INVALIDA);
+
+		if (!senhasBatem) {
+			throw new ErroAutenticacao("Senha inválida.");
 		}
 
 		return usuario.get();

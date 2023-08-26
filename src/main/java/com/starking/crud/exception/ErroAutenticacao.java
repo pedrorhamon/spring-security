@@ -3,7 +3,7 @@ package com.starking.crud.exception;
 /**
  * @author pedroRhamon
  */
-public class ErroAutenticacao extends Exception {
+public class ErroAutenticacao extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
