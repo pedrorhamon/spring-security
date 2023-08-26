@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.starking.crud.domain.model.Usuario;
 
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 /**
