@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.starking.crud.domain.model.Usuario;
+import com.starking.crud.exception.ErroAutenticacao;
 import com.starking.crud.repositories.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
@@ -20,7 +22,24 @@ import lombok.RequiredArgsConstructor;
 public class UsuarioService {
 
 	private final UsuarioRepository usuarioRepository;
+	private final PasswordEncoder encoder;
 
+	public Usuario autenticar(String email, String senha) {
+		Optional<Usuario> usuario = this.repository.findByEmail(email);
+		
+		if(!usuario.isPresent()) {
+			throw new ErroAutenticacao(ConstantesUtils.USUARIO_NAO_ENCONTRADO);
+		}
+		
+		boolean senhasBatem = encoder.matches(senha, usuario.get().getSenha());
+		
+		if(!senhasBatem) {
+			throw new ErroAutenticacao(ConstantesUtils.SENHA_INVALIDA);
+		}
+
+		return usuario.get();
+	}
+	
 	public List<Usuario> listarUsuario() {
 		return this.usuarioRepository.findAll();
 	}
