@@ -46,4 +46,11 @@ public class UsuarioService {
 		Usuario usuarioSalvo = this.usuarioRepository.save(usuario);
 		return Optional.ofNullable(usuarioSalvo);
 	}
+	
+	public void validarEmail(String email) {
+		boolean existe = this.usuarioRepository.existsByEmail(email);
+		if(existe) {
+			throw new RuntimeException("Já existe um usuário cadastrado com este email.");
+		}
+	}
 }
