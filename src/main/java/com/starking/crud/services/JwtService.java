@@ -68,4 +68,9 @@ public class JwtService {
 			return false;
 		}
 	}
+	
+	public String obterLoginUsuario(String token) {
+		Claims claims = obterClaims(token);
+		return claims.getSubject();
+	}
 }
