@@ -4,15 +4,33 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsUtils;
+
+import com.starking.crud.services.JwtService;
+import com.starking.crud.services.SecurityUserDetailsService;
+
+import lombok.RequiredArgsConstructor;
 
 
 /**
  * @author pedroRhamon
  */
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfiguration {
+	
+	private final JwtService jwtService;
+	
+	private final SecurityUserDetailsService userDetailsService;
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder;
+	}
 	
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
