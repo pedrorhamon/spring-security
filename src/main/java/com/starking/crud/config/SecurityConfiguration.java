@@ -33,6 +33,11 @@ public class SecurityConfiguration {
 	}
 	
 	@Bean
+	public JwtTokenFilter jwtTokenFilter() {
+		return new JwtTokenFilter(jwtService, userDetailsService);
+	}
+	
+	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests((authz) -> authz
