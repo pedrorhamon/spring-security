@@ -55,4 +55,17 @@ public class JwtService {
 				.parseClaimsJws(token)
 				.getBody();
 	}
+	
+	public boolean isTokenValido(String token) {
+		try {
+			Claims claims = obterClaims(token);
+			java.util.Date dataEx = claims.getExpiration();
+			LocalDateTime dataExpiracao = dataEx.toInstant()
+					.atZone(ZoneId.systemDefault()).toLocalDateTime();
+			boolean dataHoraAtualIsAfterDataExpiracao = LocalDateTime.now().isAfter(dataExpiracao);
+			return !dataHoraAtualIsAfterDataExpiracao;
+		}catch(ExpiredJwtException e) {
+			return false;
+		}
+	}
 }
