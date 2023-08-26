@@ -49,7 +49,7 @@ public class UsuarioController {
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizarUsuario(@RequestBody Usuario usuario, @PathVariable Long id) {
-		this.atualizarUsuario(usuario, id);
+		this.usuarioService.atualizarUsuario(usuario, id);
 	}
 
 }
