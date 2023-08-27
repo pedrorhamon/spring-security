@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.starking.crud.domain.model.Produto;
-import com.starking.crud.domain.model.Usuario;
 import com.starking.crud.services.ProdutoService;
 
 import lombok.RequiredArgsConstructor;
