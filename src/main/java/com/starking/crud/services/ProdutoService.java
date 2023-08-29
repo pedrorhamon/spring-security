@@ -49,7 +49,4 @@ public class ProdutoService {
 	public void deletarProduto(Long id) {
 		this.produtoRepository.deleteById(id);
 	}
-	
-	
-
 }
