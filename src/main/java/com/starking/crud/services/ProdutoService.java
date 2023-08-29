@@ -45,6 +45,10 @@ public class ProdutoService {
 		Produto produtoSalvar = this.produtoRepository.save(produto);
 		return Optional.ofNullable(produtoSalvar);
 	}
+
+	public void deletarProduto(Long id) {
+		this.produtoRepository.deleteById(id);
+	}
 	
 	
 
