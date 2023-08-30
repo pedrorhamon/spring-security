@@ -60,7 +60,7 @@ public class UsuarioService {
 	    this.usuarioRepository.save(usuarioAtualizado);
 	}
 
-	@Transactional
+	@org.springframework.transaction.annotation.Transactional
 	public Optional<Usuario> salvarUsuario(Usuario usuario) {
 		Usuario usuarioSalvo = this.usuarioRepository.save(usuario);
 		return Optional.ofNullable(usuarioSalvo);
@@ -71,5 +71,10 @@ public class UsuarioService {
 		if(existe) {
 			throw new RuntimeException("Já existe um usuário cadastrado com este email.");
 		}
+	}
+
+	@org.springframework.transaction.annotation.Transactional(readOnly = true)
+	public void deletarUsuario(Long id) {
+		this.usuarioRepository.deleteById(id);
 	}
 }
