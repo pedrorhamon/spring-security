@@ -44,7 +44,8 @@ public class UsuarioController {
 			String token = jwtService.gerarToken(usuarioAutenticado);
 			TokenRecord tokenDTO = new TokenRecord( usuarioAutenticado.getNome(), token);
 		}catch (ErroAcessoException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+			e.printStackTrace();
+			return;
 		}
 	}
 
