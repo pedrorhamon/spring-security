@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.starking.crud.domain.model.Usuario;
+import com.starking.crud.services.JwtService;
 import com.starking.crud.services.UsuarioService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class UsuarioController {
 
 	private final UsuarioService usuarioService;
+	private final JwtService jwtService;
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
