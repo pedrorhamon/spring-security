@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.starking.crud.domain.CredenciaisRecord;
 import com.starking.crud.domain.TokenRecord;
 import com.starking.crud.domain.model.Usuario;
+import com.starking.crud.exception.ErroAcessoException;
 import com.starking.crud.services.JwtService;
 import com.starking.crud.services.UsuarioService;
 
@@ -37,12 +38,11 @@ public class UsuarioController {
 	
 	@PostMapping("/autenticar")
 	@ResponseStatus(HttpStatus.OK)
-	public void autenticar( @RequestBody @Validated CredenciaisRecord dto ) {
+	public void autenticar( @RequestBody @Validated CredenciaisRecord record ) {
 		try {
-			Usuario usuarioAutenticado = this.usuarioService.autenticar(dto.getEmail(), dto.getSenha());
+			Usuario usuarioAutenticado = this.usuarioService.autenticar(record.email(), record.senha());
 			String token = jwtService.gerarToken(usuarioAutenticado);
 			TokenRecord tokenDTO = new TokenRecord( usuarioAutenticado.getNome(), token);
-			return ResponseEntity.ok(tokenDTO);
 		}catch (ErroAcessoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
