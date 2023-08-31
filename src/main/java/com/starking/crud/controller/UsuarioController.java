@@ -23,6 +23,7 @@ import com.starking.crud.exception.ErroAcessoException;
 import com.starking.crud.services.JwtService;
 import com.starking.crud.services.UsuarioService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -63,7 +64,7 @@ public class UsuarioController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Optional<Usuario> salvarUsuario(@RequestBody Usuario usuario) {
+	public Optional<Usuario> salvarUsuario(@RequestBody @Valid Usuario usuario) {
 		return this.usuarioService.salvarUsuario(usuario);
 	}
 	
