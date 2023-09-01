@@ -7,6 +7,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NegativeOrZero;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -25,7 +29,15 @@ public class Produto implements Serializable{
 	@EqualsAndHashCode.Include
 	private Long id;
 	
+	@NotNull(message = "O nome é obrigatorio")
+	@NotEmpty(message = "O nome não pode ser vázio")
 	private String title;
 	
+	@NotNull(message = "O preço é obrigatorio")
+	@NotEmpty(message = "O preço não pode ser vázio")
+	@Positive
+	@NegativeOrZero
 	private BigDecimal preco;
+	
+	private String descricao;
 }
