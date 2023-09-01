@@ -11,6 +11,8 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -58,6 +60,17 @@ public class SwaggerConfig implements WebMvcConfigurer {
 				.securityReferences(defaultAuth())
 				.forPaths(PathSelectors.any()).build();
 	}
+	
+	private Contact contact() {
+		return new Contact("Pedro Rhamon Sousa Ferreira", 
+				"https://github.com/pedrorhamon/pedrorhamon",
+				"pedrorhamon16@gmail.com");
+	}
+
+	public ApiKey apiKey() {
+		return new ApiKey("JWT", "Authorization", "header");
+	}
+
 	
 	
 
