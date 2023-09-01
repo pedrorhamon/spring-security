@@ -1,12 +1,14 @@
 package com.starking.crud.services;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -68,8 +70,9 @@ public class ProdutoService {
 	    this.produtoRepository.save(produtoAtualizado);
 	}
 
-	public Optional<Produto> salvarProduto(Produto produto) {
-		Produto produtoSalvar = this.produtoRepository.save(produto);
+	public Optional<Produto> salvarProduto(Produto produto, MultipartFile imagem) throws IOException {
+		Produto produtoSalvar = this.produtoRepository.save(produto); 
+		produtoSalvar.setImagem(imagem.getBytes());
 		return Optional.ofNullable(produtoSalvar);
 	}
 

@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itextpdf.text.DocumentException;
 import com.starking.crud.domain.model.Produto;
@@ -45,16 +46,16 @@ public class ProdutoController {
 	
 	@GetMapping("/exportar-pdf")
 	@ResponseStatus(HttpStatus.OK)
-	public byte[] exportarProdutosParaPDF(Pageable pageable) throws DocumentException, IOException {
-		Page<Produto> produtos = produtoService.buscarTodosProduto(pageable);
-		ByteArrayOutputStream pdfStream = produtoService.gerarRelatorioPDF(produtos);
+    public byte[] exportarProdutosParaPDF(Pageable pageable) throws DocumentException, IOException {
+        Page<Produto> produtos = produtoService.buscarTodosProduto(pageable);
+        ByteArrayOutputStream pdfStream = produtoService.gerarRelatorioPDF(produtos);
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_PDF);
-		headers.setContentDispositionFormData("attachment", "relatorio_produtos.pdf");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "relatorio_produtos.pdf");
 
-		return pdfStream.toByteArray();
-	}
+        return pdfStream.toByteArray();
+    }
 	
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
@@ -64,8 +65,8 @@ public class ProdutoController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Optional<Produto> salvarProduto(@RequestBody Produto produto) {
-		return this.produtoService.salvarProduto(produto);
+	public Optional<Produto> salvarProduto(@RequestBody Produto produto, @RequestParam MultipartFile imagem) throws IOException {
+		return this.produtoService.salvarProduto(produto, imagem);
 	}
 	
 	@PutMapping("/{id}")
