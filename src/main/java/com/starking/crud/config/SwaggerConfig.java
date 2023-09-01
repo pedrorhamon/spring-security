@@ -1,9 +1,17 @@
 package com.starking.crud.config;
 
+import java.util.Arrays;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
+import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -24,6 +32,22 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+	
+	@Bean
+	public Docket docket() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.useDefaultResponseMessages(false).select()
+				.apis(RequestHandlerSelectors.basePackage("com.starking.artesanato.api.controllers"))
+				.paths(PathSelectors.any())
+				.build().securityContexts(Arrays.asList(securityContext())).securitySchemes(Arrays.asList(apiKey()))
+				.apiInfo(apiInfo());
+	}
+	
+	private SecurityContext securityContext() {
+		return SecurityContext.builder()
+				.securityReferences(defaultAuth())
+				.forPaths(PathSelectors.any()).build();
+	}
 	
 	
 
