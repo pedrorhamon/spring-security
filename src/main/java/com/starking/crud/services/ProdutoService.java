@@ -1,6 +1,9 @@
 package com.starking.crud.services;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Optional;
+
+import javax.swing.text.Document;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -24,6 +27,17 @@ public class ProdutoService {
 	public Page<Produto> buscarTodosProduto(Pageable pageable) {
 		return this.produtoRepository.findAll(pageable);
 	}
+	
+    public ByteArrayOutputStream gerarRelatorioPDF(Page<Produto> produtos) throws DocumentException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        
+        Document document = new Document();
+        PdfWriter.getInstance(document, byteArrayOutputStream);
+
+
+    }
+
+	
 	
 	public Produto buscarPorId(Long id) {
 		Optional<Produto> produtoOptional = produtoRepository.findById(id);
