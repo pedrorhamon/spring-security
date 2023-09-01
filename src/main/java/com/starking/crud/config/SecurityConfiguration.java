@@ -9,6 +9,7 @@ import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -100,5 +101,15 @@ public class SecurityConfiguration {
 		
 		return filter;
 	}
+	
+	public void configure(WebSecurity web) throws Exception {
+	        web.ignoring().requestMatchers(
+	                "/v2/api-docs",
+	                "/configuration/ui",
+	                "/swagger-resources/**",
+	                "/configuration/security",
+	                "/swagger-ui.html",
+	                "/webjars/**");
+	    }
 
 }
