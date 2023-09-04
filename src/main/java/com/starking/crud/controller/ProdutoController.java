@@ -48,6 +48,7 @@ public class ProdutoController {
 		return this.produtoService.buscarTodosProduto(pageable);
 	}
 	
+	@ApiOperation("Exportação da listagem de todos os produtos")
 	@GetMapping("/exportar-pdf")
 	@ResponseStatus(HttpStatus.OK)
     public byte[] exportarProdutosParaPDF(Pageable pageable) throws DocumentException, IOException {
