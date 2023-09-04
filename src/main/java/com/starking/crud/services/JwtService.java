@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.starking.crud.domain.model.Usuario;
 
@@ -18,6 +19,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 /**
  * @author pedroRhamon
  */
+@Service
 public class JwtService {
 	
 	@Value("${jwt.expiracao}")
