@@ -62,24 +62,28 @@ public class ProdutoController {
         return pdfStream.toByteArray();
     }
 	
+	@ApiOperation("Busca produtos por id")
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public void buscarPorId(@PathVariable Long id) {
 		this.produtoService.buscarPorId(id);
 	}
 	
+	@ApiOperation("Cadastra novos produtos")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Optional<Produto> salvarProduto(@RequestBody Produto produto, @RequestParam MultipartFile imagem) throws IOException {
 		return this.produtoService.salvarProduto(produto, imagem);
 	}
 	
+	@ApiOperation("Altera produtos existente")
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizarProduto(@RequestBody Produto produto, @PathVariable Long id) {
 		this.produtoService.atualizarUsuario(produto, id);
 	}
 	
+	@ApiOperation("Remove produtos")
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletarProduto(@PathVariable Long id) {
