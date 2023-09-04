@@ -25,6 +25,8 @@ import com.itextpdf.text.DocumentException;
 import com.starking.crud.domain.model.Produto;
 import com.starking.crud.services.ProdutoService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -34,10 +36,12 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/produto")
 @RequiredArgsConstructor
+@Api("Api de produto")
 public class ProdutoController {
 	
 	private final ProdutoService produtoService;
 	
+	@ApiOperation("Busca todos os produtos")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public Page<Produto> buscarTodosProdutos(Pageable pageable) {
