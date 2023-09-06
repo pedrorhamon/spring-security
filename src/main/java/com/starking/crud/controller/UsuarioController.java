@@ -3,8 +3,10 @@ package com.starking.crud.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,19 +25,22 @@ import com.starking.crud.exception.ErroAcessoException;
 import com.starking.crud.services.JwtService;
 import com.starking.crud.services.UsuarioService;
 
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-
 /**
  * @author pedroRhamon
  */
 @RestController
-@RequestMapping("/usuario")
-@RequiredArgsConstructor
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
-	private final UsuarioService usuarioService;
-	private final JwtService jwtService;
+private UsuarioService usuarioService;
+	
+	private JwtService jwtService;
+	
+	@Autowired
+	public UsuarioController(UsuarioService usuarioService, JwtService jwtService) {
+		this.usuarioService = usuarioService;
+		this.jwtService = jwtService;
+	}
 	
 	@PostMapping("/autenticar")
 	@ResponseStatus(HttpStatus.OK)

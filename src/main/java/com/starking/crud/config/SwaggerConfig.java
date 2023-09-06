@@ -45,7 +45,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 	public Docket docket() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.useDefaultResponseMessages(false).select()
-				.apis(RequestHandlerSelectors.basePackage("com.starking.artesanato.api.controllers"))
+				.apis(RequestHandlerSelectors.basePackage("com.starking.crud.controller"))
 				.paths(PathSelectors.any())
 				.build().securityContexts(Arrays.asList(securityContext())).securitySchemes(Arrays.asList(apiKey()))
 				.apiInfo(apiInfo());

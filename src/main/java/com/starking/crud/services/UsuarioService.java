@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,19 +12,23 @@ import com.starking.crud.domain.model.Usuario;
 import com.starking.crud.exception.ErroAutenticacao;
 import com.starking.crud.repositories.UsuarioRepository;
 
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-
 /**
  * @author pedroRhamon
  */
 @Service
-@RequiredArgsConstructor
 public class UsuarioService {
 
 	private final UsuarioRepository usuarioRepository;
 	private final PasswordEncoder encoder;
-
+	
+	@Autowired
+	public UsuarioService(
+			UsuarioRepository usuarioRepository, 
+			PasswordEncoder encoder) {
+		this.usuarioRepository = usuarioRepository;
+		this.encoder = encoder;
+	}
+	
 	public Usuario autenticar(String email, String senha) {
 		Optional<Usuario> usuario = this.usuarioRepository.findByEmail(email);
 

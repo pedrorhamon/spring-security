@@ -3,86 +3,79 @@ package com.starking.crud.config;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import com.starking.crud.controller.JwtTokenFilter;
 import com.starking.crud.services.JwtService;
 import com.starking.crud.services.SecurityUserDetailsService;
 
-import lombok.RequiredArgsConstructor;
-
-
-/**
- * @author pedroRhamon
- */
 @EnableWebSecurity
-@RequiredArgsConstructor
-public class SecurityConfiguration {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	private final JwtService jwtService;
+	@Autowired
+	private SecurityUserDetailsService userDetailsService;
 	
-	private final SecurityUserDetailsService userDetailsService;
+	@Autowired
+	private JwtService jwtService;
 	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
+	
+	@org.springframework.context.annotation.Bean
+	public static PasswordEncoder passwordEncoder() {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder;
 	}
 	
-	@Bean
+	@org.springframework.context.annotation.Bean
 	public JwtTokenFilter jwtTokenFilter() {
 		return new JwtTokenFilter(jwtService, userDetailsService);
 	}
 	
-	@Bean
+
+	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
 			.userDetailsService(userDetailsService)
 			.passwordEncoder(passwordEncoder());
 	}
 	
-	@Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception, IllegalArgumentException {
-        http
-            .authorizeHttpRequests((authz) -> {
-				try {
-					authz
-							.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-							.requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-							.requestMatchers(HttpMethod.POST, "/api/usuarios/autenticar").permitAll()
-							.requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
-					    .anyRequest().authenticated()
-					    .and()
-						.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-					.and()
-						.addFilterBefore( jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class );
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-            );
-        return http.build();
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+			.csrf().disable()
+			.authorizeRequests()
+				.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+				.antMatchers(HttpMethod.GET, "/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/usuarios/autenticar").permitAll()
+				.antMatchers(HttpMethod.POST, "/usuarios").permitAll()
+				.anyRequest().authenticated()	
+		.and()
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and()
+			.addFilterBefore( jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class )
+			;
+
+	}
 	
-	@Bean
+	@org.springframework.context.annotation.Bean
 	public FilterRegistrationBean<CorsFilter> corsFilter(){
 		
-		List<String> all = Arrays.asList("*");
+		List<String> all = Arrays.asList("http://localhost:4200");
 		
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowedMethods(all);
@@ -102,13 +95,8 @@ public class SecurityConfiguration {
 		return filter;
 	}
 	
-	public void configure(WebSecurity web) throws Exception {
-	        web.ignoring().requestMatchers(
-	                "/v2/api-docs",
-	                "/configuration/ui",
-	                "/swagger-resources/**",
-	                "/configuration/security",
-	                "/swagger-ui.html",
-	                "/webjars/**");
-	    }
+	@Override
+    public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
+    }
 }
