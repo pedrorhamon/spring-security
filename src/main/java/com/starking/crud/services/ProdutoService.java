@@ -45,6 +45,7 @@ public class ProdutoService {
             document.add(new Paragraph("Nome: " + produto.getTitle()));
             document.add(new Paragraph("Preço: " + produto.getPreco()));
             document.add(new Paragraph("Descrição: " + produto.getDescricao()));
+            document.add(new Paragraph("Foto: " + produto.getImagem()));
             document.add(new Paragraph("-----------------------------------"));
         }
 
