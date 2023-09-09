@@ -3,6 +3,4 @@ package com.starking.crud.domain;
 /**
  * @author pedroRhamon
  */
-public record EmailRecord() {
-
-}
+public record EmailRecord(String sendEmail) {}
