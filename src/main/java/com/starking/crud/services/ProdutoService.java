@@ -54,7 +54,6 @@ public class ProdutoService {
     }
 
 	
-	
 	public Produto buscarPorId(Long id) {
 		Optional<Produto> produtoOptional = produtoRepository.findById(id);
 		return produtoOptional.orElseThrow(() -> 
