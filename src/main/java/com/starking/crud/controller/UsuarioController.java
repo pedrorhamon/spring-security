@@ -25,11 +25,15 @@ import com.starking.crud.exception.ErroAcessoException;
 import com.starking.crud.services.JwtService;
 import com.starking.crud.services.UsuarioService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * @author pedroRhamon
  */
 @RestController
 @RequestMapping("/usuarios")
+@Api("Api de Usuário")
 public class UsuarioController {
 
 private UsuarioService usuarioService;
@@ -55,6 +59,7 @@ private UsuarioService usuarioService;
 		}
 	}
 
+	@ApiOperation("Busca todos os usuários")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Usuario> listarUsuario() {
