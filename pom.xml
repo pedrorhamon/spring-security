@@ -65,10 +65,16 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 
+		<!-- <dependency> -->
+		<!-- <groupId>org.postgresql</groupId> -->
+		<!-- <artifactId>postgresql</artifactId> -->
+		<!-- <scope>runtime</scope> -->
+		<!-- </dependency> -->
+
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
+			<version>42.2.24</version> <!-- Use a versão correspondente ao seu PostgreSQL -->
 		</dependency>
 
 		<dependency>
@@ -101,16 +107,16 @@
 			<version>2.9.2</version>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>javax.mail</groupId> -->
-<!-- 			<artifactId>javax.mail-api</artifactId> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.sun.mail</groupId> -->
-<!-- 			<artifactId>javax.mail</artifactId> -->
-<!-- 			<version>1.6.2</version> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
