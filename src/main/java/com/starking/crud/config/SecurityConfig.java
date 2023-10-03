@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -35,13 +36,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private JwtService jwtService;
 	
 	
-	@org.springframework.context.annotation.Bean
+	@Bean
 	public static PasswordEncoder passwordEncoder() {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder;
 	}
 	
-	@org.springframework.context.annotation.Bean
+	@Bean
 	public JwtTokenFilter jwtTokenFilter() {
 		return new JwtTokenFilter(jwtService, userDetailsService);
 	}
@@ -72,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	}
 	
-	@org.springframework.context.annotation.Bean
+	@Bean
 	public FilterRegistrationBean<CorsFilter> corsFilter(){
 		
 		List<String> all = Arrays.asList("http://localhost:4200");
