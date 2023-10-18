@@ -84,4 +84,8 @@ public class UsuarioService {
 	public void deletarUsuario(Long id) {
 		this.usuarioRepository.deleteById(id);
 	}
+	
+	public void exportarDadosExcel() {
+		
+	}
 }
