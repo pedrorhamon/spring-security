@@ -3,6 +3,8 @@ package com.starking.crud.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -65,7 +67,7 @@ public class UsuarioService {
 	    this.usuarioRepository.save(usuarioAtualizado);
 	}
 
-	@org.springframework.transaction.annotation.Transactional
+	@Transactional
 	public Optional<Usuario> salvarUsuario(Usuario usuario) {
 		Usuario usuarioSalvo = this.usuarioRepository.save(usuario);
 		return Optional.ofNullable(usuarioSalvo);
@@ -78,7 +80,7 @@ public class UsuarioService {
 		}
 	}
 
-	@org.springframework.transaction.annotation.Transactional(readOnly = true)
+	@Transactional
 	public void deletarUsuario(Long id) {
 		this.usuarioRepository.deleteById(id);
 	}
