@@ -67,17 +67,17 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.postgresql</groupId> -->
+<!-- 			<artifactId>postgresql</artifactId> -->
+<!-- 			<scope>runtime</scope> -->
+<!-- 		</dependency> -->
 
-		<!-- <dependency> -->
-		<!-- <groupId>org.postgresql</groupId> -->
-		<!-- <artifactId>postgresql</artifactId> -->
-		<!-- <version>42.2.24</version> Use a versão correspondente ao seu PostgreSQL -->
-		<!-- </dependency> -->
+		<dependency>
+		<groupId>org.postgresql</groupId>
+		<artifactId>postgresql</artifactId>
+		<version>42.3.8</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
