@@ -52,6 +52,7 @@ private UsuarioService usuarioService;
 		try {
 			Usuario usuarioAutenticado = this.usuarioService.autenticar(record.email(), record.senha());
 			String token = jwtService.gerarToken(usuarioAutenticado);
+			@SuppressWarnings("unused")
 			TokenRecord tokenDTO = new TokenRecord( usuarioAutenticado.getNome(), token);
 		}catch (ErroAcessoException e) {
 			e.printStackTrace();

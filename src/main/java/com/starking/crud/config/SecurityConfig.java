@@ -26,7 +26,7 @@ import com.starking.crud.controller.JwtTokenFilter;
 import com.starking.crud.services.JwtService;
 import com.starking.crud.services.SecurityUserDetailsService;
 
-@EnableWebSecurity
+//@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
