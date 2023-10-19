@@ -1,5 +1,6 @@
 package com.starking.crud.services;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,7 +86,8 @@ public class UsuarioService {
 		this.usuarioRepository.deleteById(id);
 	}
 	
-	public void exportarDadosExcel() {
+	// Método para exportar usuários para Excel
+	public void exportarDadosExcel() throws Exception, IOException  {
 		
 	}
 }
