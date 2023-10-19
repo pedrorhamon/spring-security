@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -88,6 +91,13 @@ public class UsuarioService {
 	
 	// Método para exportar usuários para Excel
 	public void exportarDadosExcel() throws Exception, IOException  {
+		
+		List<Usuario> listarUsuario = this.listarUsuario();
+		
+		Workbook workbook = new XSSFWorkbook();
+		Sheet sheet = workbook.createSheet("Lista de Usuários");
+		
+		 int rowNum = 0;
 		
 	}
 }
