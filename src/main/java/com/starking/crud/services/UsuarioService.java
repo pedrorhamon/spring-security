@@ -1,5 +1,6 @@
 package com.starking.crud.services;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -112,10 +113,27 @@ public class UsuarioService {
 
              cell = row.createCell(1);
              cell.setCellValue(usuario.getNome());
+             
+             cell = row.createCell(2);
+             cell.setCellValue(usuario.getCpf());
+             
+             cell = row.createCell(3);
+             cell.setCellValue(usuario.getEmail());
+             
+             cell = row.createCell(4);
+             cell.setCellValue(usuario.getTelefone());
+             
+             cell = row.createCell(5);
+             cell.setCellValue(usuario.getAtivo());
 
              rowNum++;
          }
          
-		
+         FileOutputStream fileOut = new FileOutputStream("lista_usuarios.xlsx");
+         workbook.write(fileOut);
+         fileOut.close();
+         workbook.close();
+
+         System.out.println("Usuários exportados para Excel com sucesso.");
 	}
 }
