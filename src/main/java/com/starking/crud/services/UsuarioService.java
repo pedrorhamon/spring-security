@@ -93,47 +93,47 @@ public class UsuarioService {
 	}
 	
 	// Método para exportar usuários para Excel
-	public void exportarDadosExcel() throws Exception, IOException  {
-		
+	public void exportarDadosExcel() throws Exception, IOException {
+
 		List<Usuario> listarUsuario = this.listarUsuario();
-		
+
 		Workbook workbook = new XSSFWorkbook();
 		Sheet sheet = workbook.createSheet("Lista de Usuários");
-		
-		 int rowNum = 0;
-		 Row row = sheet.createRow(rowNum);
-         Cell cell = row.createCell(0);
-         
-         rowNum++;
 
-         for (Usuario usuario : listarUsuario) {
-             row = sheet.createRow(rowNum);
-             cell = row.createCell(0);
-             cell.setCellValue(usuario.getId());
+		int rowNum = 0;
+		Row row = sheet.createRow(rowNum);
+		Cell cell = row.createCell(0);
 
-             cell = row.createCell(1);
-             cell.setCellValue(usuario.getNome());
-             
-             cell = row.createCell(2);
-             cell.setCellValue(usuario.getCpf());
-             
-             cell = row.createCell(3);
-             cell.setCellValue(usuario.getEmail());
-             
-             cell = row.createCell(4);
-             cell.setCellValue(usuario.getTelefone());
-             
-             cell = row.createCell(5);
-             cell.setCellValue(usuario.getAtivo());
+		rowNum++;
 
-             rowNum++;
-         }
-         
-         FileOutputStream fileOut = new FileOutputStream("lista_usuarios.xlsx");
-         workbook.write(fileOut);
-         fileOut.close();
-         workbook.close();
+		for (Usuario usuario : listarUsuario) {
+			row = sheet.createRow(rowNum);
+			cell = row.createCell(0);
+			cell.setCellValue(usuario.getId());
 
-         System.out.println("Usuários exportados para Excel com sucesso.");
+			cell = row.createCell(1);
+			cell.setCellValue(usuario.getNome());
+
+			cell = row.createCell(2);
+			cell.setCellValue(usuario.getCpf());
+
+			cell = row.createCell(3);
+			cell.setCellValue(usuario.getEmail());
+
+			cell = row.createCell(4);
+			cell.setCellValue(usuario.getTelefone());
+
+			cell = row.createCell(5);
+			cell.setCellValue(usuario.getAtivo());
+
+			rowNum++;
+		}
+
+		FileOutputStream fileOut = new FileOutputStream("lista_usuarios.xlsx");
+		workbook.write(fileOut);
+		fileOut.close();
+		workbook.close();
+
+		System.out.println("Usuários exportados para Excel com sucesso.");
 	}
 }
