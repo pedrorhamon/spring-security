@@ -29,15 +29,13 @@ public class UsuarioService {
 
 	private final UsuarioRepository usuarioRepository;
 	private final PasswordEncoder encoder;
-	
+
 	@Autowired
-	public UsuarioService(
-			UsuarioRepository usuarioRepository, 
-			PasswordEncoder encoder) {
+	public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder encoder) {
 		this.usuarioRepository = usuarioRepository;
 		this.encoder = encoder;
 	}
-	
+
 	public Usuario autenticar(String email, String senha) {
 		Optional<Usuario> usuario = this.usuarioRepository.findByEmail(email);
 
@@ -53,25 +51,24 @@ public class UsuarioService {
 
 		return usuario.get();
 	}
-	
+
 	public List<Usuario> listarUsuario() {
 		return this.usuarioRepository.findAll();
 	}
 
 	public Usuario buscarPorId(Long id) {
 		Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
-		return usuarioOptional.orElseThrow(() -> 
-		new RuntimeException("Usuário com ID " + id + " não encontrado"));
+		return usuarioOptional.orElseThrow(() -> new RuntimeException("Usuário com ID " + id + " não encontrado"));
 	}
 
 	public void atualizarUsuario(Usuario usuario, Long id) {
-	    Optional<Usuario> usuarioAtualizadoOptional = Optional.ofNullable(this.buscarPorId(id));
-	    Usuario usuarioAtualizado = usuarioAtualizadoOptional.orElseThrow(() ->
-	            new RuntimeException("Usuário com ID " + id + " não encontrado"));
+		Optional<Usuario> usuarioAtualizadoOptional = Optional.ofNullable(this.buscarPorId(id));
+		Usuario usuarioAtualizado = usuarioAtualizadoOptional
+				.orElseThrow(() -> new RuntimeException("Usuário com ID " + id + " não encontrado"));
 
-	    BeanUtils.copyProperties(usuario, usuarioAtualizado);
+		BeanUtils.copyProperties(usuario, usuarioAtualizado);
 
-	    this.usuarioRepository.save(usuarioAtualizado);
+		this.usuarioRepository.save(usuarioAtualizado);
 	}
 
 	@Transactional
@@ -79,10 +76,10 @@ public class UsuarioService {
 		Usuario usuarioSalvo = this.usuarioRepository.save(usuario);
 		return Optional.ofNullable(usuarioSalvo);
 	}
-	
+
 	public void validarEmail(String email) {
 		boolean existe = this.usuarioRepository.existsByEmail(email);
-		if(existe) {
+		if (existe) {
 			throw new RuntimeException("Já existe um usuário cadastrado com este email.");
 		}
 	}
@@ -91,7 +88,7 @@ public class UsuarioService {
 	public void deletarUsuario(Long id) {
 		this.usuarioRepository.deleteById(id);
 	}
-	
+
 	// Método para exportar usuários para Excel
 	public void exportarDadosExcel() throws Exception, IOException {
 
