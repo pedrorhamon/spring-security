@@ -1,6 +1,5 @@
 package com.starking.crud.controller;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -8,10 +7,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itextpdf.text.DocumentException;
 import com.starking.crud.domain.CredenciaisRecord;
 import com.starking.crud.domain.TokenRecord;
 import com.starking.crud.domain.model.Usuario;
@@ -52,6 +47,7 @@ private UsuarioService usuarioService;
 		this.jwtService = jwtService;
 	}
 	
+	@ApiOperation("Autenticar")
 	@PostMapping("/autenticar")
 	@ResponseStatus(HttpStatus.OK)
 	public void autenticar( @RequestBody @Validated CredenciaisRecord record ) {
@@ -73,40 +69,38 @@ private UsuarioService usuarioService;
 		return this.usuarioService.listarUsuario();
 	}
 
+	@ApiOperation("Busca usuários por id")
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public void buscarPorId(@PathVariable Long id) {
 		this.usuarioService.buscarPorId(id);
 	}
 
+	@ApiOperation("Criar usuário")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Optional<Usuario> salvarUsuario(@RequestBody @Valid Usuario usuario) {
 		return this.usuarioService.salvarUsuario(usuario);
 	}
 	
+	@ApiOperation("Atualizar usuário")
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizarUsuario(@RequestBody Usuario usuario, @PathVariable Long id) {
 		this.usuarioService.atualizarUsuario(usuario, id);
 	}
 	
+	@ApiOperation("Deletar usuário")
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletarUsuario(@PathVariable Long id) {
 		this.usuarioService.deletarUsuario(id);
 	}
 	
-	@GetMapping("/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public void exportarArquivoExcel(@PathVariable Long id) {
-		this.usuarioService.buscarPorId(id);
-	}
-	
+	@ApiOperation("Exportar Relatório para auditoria")
 	@GetMapping("/exportar-excel")
 	public void exportarDadosExcel() throws Exception, IOException {
 		this.usuarioService.exportarDadosExcel();
 		System.out.println("Usuários exportados para Excel com sucesso.");
 	}
-
 }
