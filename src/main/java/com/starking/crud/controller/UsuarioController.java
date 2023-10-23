@@ -99,6 +99,7 @@ private UsuarioService usuarioService;
 	
 	@ApiOperation("Exportar Relatório para auditoria")
 	@GetMapping("/exportar-excel")
+	@ResponseStatus(HttpStatus.OK)
 	public void exportarDadosExcel() throws Exception, IOException {
 		this.usuarioService.exportarDadosExcel();
 		System.out.println("Usuários exportados para Excel com sucesso.");
