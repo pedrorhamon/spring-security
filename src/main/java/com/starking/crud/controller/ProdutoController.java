@@ -3,9 +3,7 @@ package com.starking.crud.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.logging.LogManager;
 
-import org.slf4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.apache.logging.log4j.*;
 
 import com.itextpdf.text.DocumentException;
 import com.starking.crud.domain.model.Produto;
@@ -41,10 +40,9 @@ import lombok.RequiredArgsConstructor;
 @Api("Api de produto")
 public class ProdutoController {
 	
-	private final ProdutoService produtoService;
+	 private static final Logger log = LogManager.getLogger(UsuarioController.class);
 	
-    private static final Logger logger = LogManager.getLogger(UsuarioController.class);
-
+	private final ProdutoService produtoService;
 	
 	@ApiOperation("Busca todos os produtos")
 	@GetMapping
@@ -64,7 +62,7 @@ public class ProdutoController {
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDispositionFormData("attachment", "relatorio_produtos.pdf");
 
-        System.out.println("Usuários exportados para Excel com sucesso.");
+        log.info("Exportando Produtos em PDF com sucesso.");
         return pdfStream.toByteArray();
     }
 	
