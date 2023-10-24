@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -39,6 +41,8 @@ public class UsuarioController {
 
 private UsuarioService usuarioService;
 	
+	private static final Logger log = LogManager.getLogger(UsuarioController.class);
+
 	private JwtService jwtService;
 	
 	@Autowired
@@ -102,6 +106,6 @@ private UsuarioService usuarioService;
 	@ResponseStatus(HttpStatus.OK)
 	public void exportarDadosExcel() throws Exception, IOException {
 		this.usuarioService.exportarDadosExcel();
-		System.out.println("Usuários exportados para Excel com sucesso.");
+		log.info("Usuários exportados para Excel com sucesso.");
 	}
 }

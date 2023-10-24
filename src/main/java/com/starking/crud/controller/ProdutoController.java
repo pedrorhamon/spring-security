@@ -40,7 +40,7 @@ import lombok.RequiredArgsConstructor;
 @Api("Api de produto")
 public class ProdutoController {
 	
-	 private static final Logger log = LogManager.getLogger(UsuarioController.class);
+	 private static final Logger log = LogManager.getLogger(ProdutoController.class);
 	
 	private final ProdutoService produtoService;
 	
