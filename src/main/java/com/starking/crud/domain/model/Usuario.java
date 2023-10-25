@@ -55,7 +55,7 @@ public class Usuario implements Serializable{
 	private String telefone;
 	
 	@DateTimeFormat(iso = ISO.DATE, fallbackPatterns = {"dd/MM/yyyy"})
-	@NotNull(message = "A data de nascimento é obrigatorio")
+	@NotNull(message = "A data de nascimento não pode ser nula")
 	private Date dataNascimento;
 	
 	private Boolean ativo = Boolean.TRUE;
