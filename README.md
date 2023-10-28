@@ -7,4 +7,4 @@ utilizando swagger
 envio de email
 importacao e exportação 
 
-problema com dependency depois resolver 
+conseguir resolver a dependency
