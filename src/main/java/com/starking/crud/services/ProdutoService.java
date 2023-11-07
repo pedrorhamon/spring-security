@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,16 +18,14 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.starking.crud.domain.model.Produto;
 import com.starking.crud.repositories.ProdutoRepository;
 
-import lombok.RequiredArgsConstructor;
-
 /**
  * @author pedroRhamon
  */
 @Service
-@RequiredArgsConstructor
 public class ProdutoService {
 
-	private final ProdutoRepository produtoRepository;
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	public Page<Produto> buscarTodosProduto(Pageable pageable) {
 		return this.produtoRepository.findAll(pageable);
